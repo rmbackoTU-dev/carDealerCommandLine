@@ -184,10 +184,26 @@ module.exports= function()
         "cost":51700},
     ];
 
-    const insertDocuments =function (db, objects, callback)
+    const insertDealers =function (db, objects, callback)
     {
         //Get the documents collection
-        const collection= db.collection('documents');
+        const collection= db.collection('dealers');
+
+        collection.insertMany(objects, function(err, result)
+        {
+            console.log("Inserted object: ");
+            objects.forEach((element, index) => {
+                console.log(index+": "+JSON.stringify(element));
+            });
+            callback(result);
+        });
+
+    }
+
+    const insertCars =function (db, objects, callback)
+    {
+        //Get the documents collection
+        const collection= db.collection('cars');
 
         collection.insertMany(objects, function(err, result)
         {
@@ -206,19 +222,19 @@ module.exports= function()
         console.log("Connected successfully to server");
 
         const db = client.db(dbName);
-        insertDocuments(db, dealerships, function()
+        insertDealers(db, dealerships, function()
         {
             console.log("Inserting  dealerships document");
         });
-        insertDocuments(db, fordCars, function()
+        insertCars(db, fordCars, function()
         {
             console.log("Inserting  fordCars document");
         });
-        insertDocuments(db, jeepCars, function()
+        insertCars(db, jeepCars, function()
         {
             console.log("Inserting  jeepCars document");
         });
-        insertDocuments(db, chevyCars, function()
+        insertCars(db, chevyCars, function()
         {
             console.log("Inserting  chevyCars document");
         });

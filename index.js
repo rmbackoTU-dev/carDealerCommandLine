@@ -1,6 +1,7 @@
 //Car Command line
-module.exports= (processArgs) => {
+module.exports= (processArgs, quantity) => {
     var fs=require('fs');
+    var updateCar=require('./db/updateCars.js');
     var commandLineArgLength=processArgs.length;
 
     if(commandLineArgLength < 3)
@@ -22,6 +23,8 @@ module.exports= (processArgs) => {
                 let dealer=processArgs[3];
                 let car=processArgs[4];
                 console.log("Buying a "+car+" from "+dealer);
+                let newQuant=quantity-1;
+                updateCar(dealer, car, newQuant);
             }
         }
         else if (firstCommand === 'sell')
@@ -35,6 +38,8 @@ module.exports= (processArgs) => {
                 let dealer=processArgs[3];
                 let car=processArgs[4];
                 console.log("Selling your "+car+" to "+dealer);
+                let newQuant=quantity+1;
+                updateCar(dealer, car, newQuant);
             }
         }
         else if(firstCommand === 'list')

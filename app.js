@@ -3,7 +3,7 @@ var schemaSetup=require('./db/schemaSetup.js');
 
 schemaSetup();
 processArgs=process.argv;
-app(processArgs);
+setTimeout(app, 5000, processArgs, 10);
 
 
 
